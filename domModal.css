@@ -1,0 +1,61 @@
+/**
+ * domModal.css
+ */
+#modalOverlay,
+#modalContent{
+	position:fixed;
+	display:none;
+}
+#modalOverlay{
+	z-index:100;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	background:#000;
+}
+#modalContent{
+	z-index:101;
+	top:50%;
+	left:50%;
+	/* following styles should be modified for your needs */
+	color:#444;
+	text-align:left;
+	border:2px solid #fff;
+	background-color:#fff;
+    /*rounded-corners*/
+    -moz-border-radius:10px;
+    border-radius:10px;
+    /*drop-shadow*/
+    -moz-box-shadow:3px 3px 4px #111;
+    -webkit-box-shadow:3px 3px 4px #111;
+    box-shadow:3px 3px 4px #111;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111')";/* For IE 8 */
+    filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111');/* For IE 5.5 - 7 */
+}
+/* use alternate styles for 'position:fixed' unsupported in IE6 */
+.ie6 #modalOverlay,
+.ie6 #modalContent{
+     position:absolute;
+}
+.ie6 #modalOverlay{
+     height:expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight :document.body.offsetHeight + 'px');
+}
+.ie6 #modalContent{
+    margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+/* adjust styling below for alternate implementations */
+#modalClose{
+    position:absolute;
+    display:block;
+    overflow:hidden;
+    text-indent:-999em;
+    width:24px;
+    height:24px;
+    top:-12px;
+    right:-13px;
+    background:transparent url(example/images/btn-close-sprite.gif) no-repeat;
+}
+#modalClose:hover{
+    background-position:0 -24px;
+}
