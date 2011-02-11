@@ -1,0 +1,7 @@
+ABOUT
+=====
+domModal is a simple jQuery plug-in to load content from elsewhere in the DOM into a modal overlay.
+
+REQUIREMENTS
+------------
+- jQuery v1.3 or above
