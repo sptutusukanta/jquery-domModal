@@ -1,0 +1,126 @@
+<!doctype html>  
+
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Example Use of domModal.jquery.js</title>
+
+	<!-- JavaScript -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+	<script type="text/javascript">!window.jQuery && document.write(unescape('%3Cscript src="scripts/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+	<script type="text/javascript" src="../domModal.jquery.js"></script>
+
+	<!-- CSS : implied media="all" -->
+	<link type="text/css" rel="stylesheet" href="styles/main.css?v=1">
+	<link type="text/css" rel="stylesheet" href="../domModal.css">
+	
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			$('<div>', {id: 'source', "class": 'wrapper'}).append($('<pre>', {text:'click "view source" to look under the hood'})).appendTo('body');
+			$('#main li').each(function(){
+				$(this).before($('<span>', {
+					"class":	'showCode'
+					,text:		"View Source"
+					,click:		function(){
+						$('#source pre').text($(this).next('li').html());
+					}
+				}));
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="markup" class="wrapper">
+		<div id="main">
+		<h1>domModal.jquery.js</h1>
+		<p>Clones the content of a link's target into a simple overlay.</p>
+		<p>More documentation to follow, or consult the <a href="https://github.com/oomlaut/domModal/wiki">wiki</a>.</p>
+		<p><em>note:</em> most of the styling of the overlay is handled in domModal.css</p>
+
+		<ol>
+			<li>
+				<a href="#targetElement" rel="modal">Targeting an element</a>
+				
+				<div id="targetElement" class="hidden">
+					<h3>Hidden Content</h3>
+					<p>this is an example of content that is prestyled but hidden on the page; ideal for searchable content or assistive text.</p>
+				</div>
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('a[rel*="modal"]').domModal();
+					});
+				</script>
+			</li>
+			<li>
+				<a href="#targetImage" class="imgbox">Targeting an image</a>
+
+				<img src="images/sample.gif" alt="schooner" id="targetImage" class="hidden">
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('a.imgbox').domModal();
+					});
+				</script>
+			</li>
+			<li>
+				<a href="#customModal" id="custom">Custom parameters</a>
+
+				<div id="customModal" class="hidden">foo</div>
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('#custom').domModal({width: 600, opacity:.25, padding:{bottom:100}, closeBtn:false});
+					});
+				</script>
+			</li>
+			<li>
+				<a href="#setupModal" id="setup">Setup function to execute beforehand</a>
+				
+				<p id="setupModal" class="hidden">This happens after.</p>
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('#setup').domModal({setup:function(){if(!confirm("really create a modal?")){break;}}});
+					});
+				</script>
+			</li>
+			<li>
+				<a href="#callbackModal" id="callback">Callback function runs after animation is complete</a>
+					
+				<div id="callbackModal" class="hidden">
+					<h3>I brought this modal into the DOM&hellip;</h3>
+				</div>
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('#callback').domModal(null, function(){alert("...and now I will destroy it."); $('#modalClose').click(); });
+					});
+				</script>
+			</li>
+			<li>
+				<a href="#videoModal" id="video">Embed video (YouTube <kbd>iframe</kbd>)</a>
+					
+				<div id="videoModal" class="hidden">
+					<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/Hk5oXFtYLwE" frameborder="0" allowfullscreen></iframe>
+				</div>
+				
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						$('#video').domModal();
+					});
+				</script>
+			</li>
+		</ol>
+		</div><!-- end of #main -->
+	</div> <!--! end of #wrapper -->
+
+</body>
+</html>
