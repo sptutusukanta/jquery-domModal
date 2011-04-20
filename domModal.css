@@ -33,17 +33,6 @@
     -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111')";/* For IE 8 */
     filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111');/* For IE 5.5 - 7 */
 }
-/* use alternate styles for 'position:fixed' unsupported in IE6 */
-.ie6 #modalOverlay,
-.ie6 #modalContent{
-     position:absolute;
-}
-.ie6 #modalOverlay{
-     height:expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight :document.body.offsetHeight + 'px');
-}
-.ie6 #modalContent{
-    margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
-}
 /* adjust styling below for alternate implementations */
 #modalClose{
     position:absolute;
@@ -58,4 +47,17 @@
 }
 #modalClose:hover{
     background-position:0 -24px;
+}
+
+
+/* use alternate styles for 'position:fixed' unsupported in IE6 */
+.ie6 #modalOverlay,
+.ie6 #modalContent{
+     position:absolute;
+}
+.ie6 #modalOverlay{
+     height:expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight :document.body.offsetHeight + 'px');
+}
+.ie6 #modalContent{
+    margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
 }
