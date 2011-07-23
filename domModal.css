@@ -24,8 +24,10 @@
 	border:2px solid #fff;
 	background-color:#fff;
     /*rounded-corners*/
+    -webkit-border-radius:10px;
     -moz-border-radius:10px;
     border-radius:10px;
+    padding:10px;
     /*drop-shadow*/
     -moz-box-shadow:3px 3px 4px #111;
     -webkit-box-shadow:3px 3px 4px #111;
