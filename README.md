@@ -45,15 +45,15 @@ Load modal content in an `iframe`
 OPTIONS
 -------
 
-* `target` An alternate jQuery selected element as target. Default value: __false__
-* `event` Event on which to construct the overlay. Default value: __click__
-* `iframe` Load the target in an iframe instead Default value: __false__
-* `width` If unspecified, will use width of target element.  Default value: __false__
-* `height` If unspecified, will use height of target element. Default value: __false__
-* `opacity` Translucency (0.00-1.00) of overlay background fill. Default value: __.85__		//accept float
-* `transitionRate` Duration (integer 1-1000 || "fast" || "slow") of effects. Default value: __500__
-* `closeBtn` Display a "close" button. Default value: __true__
-* `setup` Function to be performed prior to overlay construction. Default value: __null__
+* `target` An alternate jQuery selected element as target. Default value: _false_
+* `event` Event on which to construct the overlay. Default value: _click_
+* `iframe` Load the target in an iframe instead Default value: _false_
+* `width` If unspecified, will use width of target element.  Default value: _false_
+* `height` If unspecified, will use height of target element. Default value: _false_
+* `opacity` Translucency (0.00-1.00) of overlay background fill. Default value: _.85_
+* `transitionRate` Duration (integer 1-1000 || "fast" || "slow") of effects. Default value: _500_
+* `closeBtn` Display a "close" button. Default value: _true_
+* `setup` Function to be performed prior to overlay construction. Default value: _null_
 
 
 CHANGELOG
@@ -66,8 +66,7 @@ DEVELOPMENT
 * Please report all issues, questions, and feature requests to [GitHub Issues][ghi]
 * Pull requests are definitely encouraged! Please test your code before submitting however.
 
-	[gh]: https://github.com/oomlaut/domModal.jquery.js
-	[ghi]: https://github.com/oomlaut/domModal.jquery.js/issues  
+ 
 
 CREDITS
 -------
@@ -75,12 +74,15 @@ CREDITS
 * Plugin structure and callback inclusion inspired by [Simplemodal][sm]
 * Bind to custom event inspired by [Squeezebox][sb]
 	
-	[tb]: http://jquery.com/demo/thickbox/
-	[sm]: http://www.ericmmartin.com/projects/simplemodal/
-	[sb]: http://digitarald.de/project/squeezebox/
+
 
 AUTHORS
 -------
 [Paul Gueller][pg]
 
-	[pg]: http://paulgueller.com
+[gh]: https://github.com/oomlaut/domModal.jquery.js
+[ghi]: https://github.com/oomlaut/domModal.jquery.js/issues
+[tb]: http://jquery.com/demo/thickbox/
+[sm]: http://www.ericmmartin.com/projects/simplemodal/
+[sb]: http://digitarald.de/project/squeezebox/
+[pg]: http://paulgueller.com
