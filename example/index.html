@@ -12,8 +12,7 @@
 	<title>Example Use of domModal.jquery.js</title>
 
 	<!-- JavaScript -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
-	<script type="text/javascript">!window.jQuery && document.write(unescape('%3Cscript src="scripts/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="../domModal.jquery.js"></script>
 
 	<!-- CSS : implied media="all" -->
@@ -71,14 +70,12 @@
 				</script>
 			</li>
 			<li>
-				<a href="#customModal" id="custom">Custom parameters</a>
+				<a href="#customModal" id="options">Custom parameters</a>
 
 				<div id="customModal" class="hidden">foo</div>
 				
 				<script type="text/javascript">
-					jQuery(document).ready(function(){
-						$('#custom').domModal({width: 600, opacity:.25, padding:{bottom:100}, closeBtn:false});
-					});
+					$('#options').domModal({width: 600, opacity:.25, padding:{bottom:100}, closeBtn:false});
 				</script>
 			</li>
 			<li>
@@ -87,21 +84,21 @@
 				<p id="setupModal" class="hidden">This happens after.</p>
 				
 				<script type="text/javascript">
-					jQuery(document).ready(function(){
-						$('#setup').domModal({setup:function(){if(!confirm("really create a modal?")){break;}}});
-					});
+					$('#setup').domModal({setup:function(){ confirm("really create a modal?"); } });
 				</script>
 			</li>
 			<li>
 				<a href="#callbackModal" id="callback">Callback function runs after animation is complete</a>
 					
 				<div id="callbackModal" class="hidden">
-					<h3>I brought this modal into the DOM&hellip;</h3>
+					<h3>Callbacks example</h3>
 				</div>
 				
 				<script type="text/javascript">
-					jQuery(document).ready(function(){
-						$('#callback').domModal(null, function(){alert("...and now I will destroy it."); $('#modalClose').click(); });
+					$('#callback').domModal(null, function(){
+						alert("I brought this modal into the DOM...");
+					}, function(){
+						alert("...and I can destroy it.");
 					});
 				</script>
 			</li>
@@ -113,8 +110,22 @@
 				</div>
 				
 				<script type="text/javascript">
-					jQuery(document).ready(function(){
-						$('#video').domModal();
+					$('#video').domModal();
+				</script>
+			</li>
+			<li>
+				<a href="#customContainer" id="customEvent">Don't click me</a>
+				<button id="btnCustom">Click me!</button>	
+				<div id="customContainer" class="hidden">
+					<p>This is a custom Function?</p>
+				</div>
+				
+				<script type="text/javascript">
+					$('#customEvent').domModal({event: 'modal'});
+					
+					$('#btnCustom').bind('click', function(){
+						$('#customEvent').trigger('modal');
+						return false;
 					});
 				</script>
 			</li>
