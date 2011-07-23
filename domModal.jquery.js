@@ -1,147 +1,121 @@
 ﻿/**
- * domModal https://github.com/oomlaut/domModal
- * [description]
+ * domModal https://github.com/oomlaut/domModal.jquery.js
  *
- * Copyright (c) 2011 Paul Gueller (http://paulgueller.com)
+ * @author Paul Gueller (http://paulgueller.com)
+ * @version 1.4.0
+ * @since 2011-0723
+ * 
  * Dual licensed under the MIT and GPL licenses.
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.opensource.org/licenses/gpl-license.php
- *
- * Inspired by:
- * thickbox		http://jquery.com/demo/thickbox/
- * simplemodal	http://www.ericmmartin.com/projects/simplemodal/
- * squeezebox	http://digitarald.de/project/squeezebox/
- *
- * @usage:	jQuery('a[rel*="modal"]').domModal();
- * @usage:	jQuery('a[href*="http://"]').domModal({closeBtn: false, transitionRate: "slow"});
- * @usage:	jQuery('input#googleBtn').domModal({iframe: true, height: 600, width: 450, event: 'customEvent'}).bind('click', function(){ $(this).trigger('customEvent');});
- */
- 
-/*!TODO:
- * - ajax .load() content from another document w/o iframes
- * - true "modal" functionality: do not destroy overlays until explicit button/link is clicked
- *
  */
 
 ;(function($){
 /** jQuery().domModal();
-*
-* @name modal
-* @param Object usrOptions Options for the modal overlay and content window. Details listed in 'presets' declaration
-* @param Function callback Called after #modalContent is appended to <body> and .fadeIn() animation completes
-* @type jQuery
-* @cat plugins/"windows and overlays"
-*
-**/
-jQuery.fn.domModal = function (usrOptions, callback) {
+ *
+ * @name domModal
+ * @param options user-provided settings for the modal overlay and content window.
+ * @param Function callbackDisplay Executed after #modalContent is appended to <body> and .fadeIn() animation completes
+ * @param Function callbackDestroy Executed after #modelContent is removed
+ * @type jQuery
+ * @cat plugins/"windows and overlays"
+ *
+ */
+jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 	//modal containers
-	var modal = {}, options = {}, $ref;
+	var modal = {};
+	var $ref;
+	
+	var defaults = {
+		target: false
+		,event:	'click'
+		,iframe: false
+		,width: false
+		,height: false
+		,opacity: .85
+		,transitionRate: 500
+		,closeBtn: true
+		,setup: null
+	};
 
-	//methods for use
+	var settings = $.extend(true, defaults, options);
+	
 	var methods = {
 		construct: function () {
 			var context = this;
-			//gather information about element target
-			options.iframe = (options.iframe) ? options.iframe : ($ref.attr('rel') == 'iframe');
-			if (options.iframe) {
-				options.target = (options.target) ? options.target : $ref.attr('href');
-				options.height = (options.height) ? options.height : 600;
-				options.width = (options.width) ? options.width : 800;
+			settings.iframe = (settings.iframe) ? settings.iframe : ($ref.attr('rel') == 'iframe');
+			if (settings.iframe) {
+				settings.target = (settings.target) ? settings.target : $ref.attr('href');
+				settings.height = (settings.height) ? settings.height : 600;
+				settings.width = (settings.width) ? settings.width : 800;
 				$content = $('<iframe>', {
 					id: 'modalContentIframe'
 					,name: 'modalContentIframe'
 					,frameborder: 0
-					,height: options.height
-					,width: options.width
+					,height: settings.height
+					,width: settings.width
 					,scrolling: 'auto'
-					,src: options.target
+					,src: settings.target
 					,onload: function (){ }
 				});
 			} else {
-				options.target = (options.target) ? options.target : $($ref.attr('href'));
-				options.width = (options.width) ? options.width : options.target.width();
-				options.height = (options.height) ? options.height : options.target.height();
-				$content = options.target.clone().css({ display: 'block' });
+				settings.target = (settings.target) ? settings.target : $($ref.attr('href'));
+				settings.width = (settings.width) ? settings.width : settings.target.width();
+				settings.height = (settings.height) ? settings.height : settings.target.height();
+				$content = settings.target.clone().css({ display: 'block' });
 			}
 			modal = {
 				overlay : $('<div>', {
 					id: 'modalOverlay'
 					,'class': 'modalRemove'
-					,click: function () { context.destroy(); }
-					}).css({ opacity: options.opacity }).appendTo('body')
+					,click: function () { return !context.destroy(); }
+					}).css({ opacity: settings.opacity }).appendTo('body')
 				,content : $('<div>', { id: 'modalContent' })
-					.height(options.height)
-					.width(options.width)
-					.css({
-						marginTop: -((options.height + options.padding.top + options.padding.bottom) / 2) + 'px'
-						,marginLeft: -((options.width + options.padding.left + options.padding.right) / 2) + 'px'
-						,padding: options.padding.top + "px " + options.padding.right + "px " + options.padding.bottom + "px " + options.padding.left + "px"
-					}).append($content).appendTo('body')
+					.height(settings.height)
+					.width(settings.width)
+					.append($content).appendTo('body')
 				,close : $('<a>', {
 					id: 'modalClose'
 		            ,'class': 'ir modalRemove'
 		            ,title: 'close'
 		            ,text: "close"
 		            ,href: '#modalRemove'
-					,click: function () { context.destroy(); }
+					,click: function () { return !context.destroy(); }
 				})
 			};
 			return true;
 		}
-		,display: function (callback) {
+		,display: function () {
 			this.construct();
-			$('select').hide();
-			modal.overlay.add(modal.content).fadeIn(options.transitionRate, function () {
-				//create closeBtn
-				if (options.closeBtn) {
-					modal.close.appendTo(modal.content); //close button
+			$('select').addClass('modalmod').hide();
+			modal.overlay.add(modal.content.css({
+						marginTop: -(modal.content.outerHeight() / 2) + 'px'
+						,marginLeft: -(modal.content.outerWidth() / 2) + 'px'
+					})
+			).fadeIn(settings.transitionRate, function () {
+				if (settings.closeBtn) {
+					modal.close.appendTo(modal.content);
 				}
-				if ($.isFunction(callback)) { callback(); }
 			});
+			if($.isFunction(callbackDisplay)) { callbackDisplay(); }
 			return true;
 		}
 		,destroy: function () {
 			modal.close.remove();
-			modal.overlay.add(modal.content).fadeOut(options.transitionRate, function () {
+			modal.overlay.add(modal.content).fadeOut(settings.transitionRate, function () {
 				modal.overlay.add(modal.content).remove();
-				$('select').show();
+				$('select.modalmod').show();
 			})
-			return false;
+			if($.isFunction(callbackDestroy)) { callbackDestroy(); }
+			return true;
 		}
 	};
 
 	return this.each(function () {
-		eventListener = (typeof usrOptions.event == 'undefined') ? 'click' : usrOptions.event;
-		$(this).bind(eventListener, function (e) {
-			e.preventDefault;
+		$(this).bind(settings.event, function () {
 			$ref = $(this);
-			var presets = {
-				target: false	//accept jQuery selected element as alternate target
-				//,event:		'click'
-				,iframe: false	//load the target in an iframe instead
-				,width: false	//if unspecified will use width of target element
-				,height: false	//if unspecified will use height of target element
-				,opacity: .85		//accept float 0.00-1.00: % opacity of overlay, color determined in .css
-				,transitionRate: 500		//accept integer 1-1000 || "fast" || "slow"
-				,padding: {				//specify offset (px) target element to modalContent wrapper
-					top: 10
-					,right: 10
-					,bottom: 10
-					,left: 10
-				}
-				,closeBtn: true	//boolean display close button [x]
-				,setup: null	//chain constructors of an object: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/call
-			};
-
-			//recursively merge usrOptions into options
-			options = $.extend(true, presets, usrOptions);
-
-			//perform setup function if specified
-			$.isFunction(options.setup) && options.setup();
-
-			//construct and append overlay
-			methods.display(callback);
-
+			$.isFunction(settings.setup) && settings.setup();
+			methods.display();
 			return false;
 		});
 	});
