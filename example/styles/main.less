@@ -1,0 +1,82 @@
+@import "reset";
+@import "../../domModal.css";
+
+body {
+  background-color:#fefefe;
+}
+
+.wrapper {
+  height:100%;
+  overflow:auto;
+  position:fixed;
+  top:0;
+  width:50%;
+  #markup& {
+    background-color:#fff; 
+  }
+  #source& {
+    right:0;
+    border-left:1px solid #666;
+    background-color:#111;
+    color:#66ff00;
+  }
+}
+
+#main {
+  padding:30px;
+  ul{
+    margin-top:20px;
+    li{
+      width:75%;
+      a{
+        font-weight:bold;
+      }
+    }
+  }
+  h1, p, li {
+    margin-bottom:1em;
+  }
+}
+
+.showCode{
+  float:right;
+  display:inline;
+  border:1px solid #dedede;
+  padding:.25em;
+  background-color:#efefef;
+  cursor:pointer;
+}
+
+
+/*
+ * following styles should be modified for your needs
+ */
+
+#modalContent {
+  color:#444;
+  text-align:left;
+  border:2px solid #fff;
+  background-color:#fff;
+  /*rounded-corners*/
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  padding:10px;
+  /*drop-shadow*/
+  -moz-box-shadow:3px 3px 4px #111;
+  -webkit-box-shadow:3px 3px 4px #111;
+  box-shadow:3px 3px 4px #111;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111')";/* For IE 8 */
+  filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#111111');/* For IE 5.5 - 7 */
+  .modalRemove {
+    @dim: 24px;
+    width:@dim;
+    height:@dim;
+    top:0-(@dim/2);
+    right:0-(@dim/2);
+    background:transparent url(../images/btn-close-sprite.gif) no-repeat 50% 50%;
+    &:hover {
+      background-position:0 0-@dim;
+    }
+  }
+}

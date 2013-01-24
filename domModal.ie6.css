@@ -1,0 +1,14 @@
+/**
+ * use alternate styles for 'position:fixed' unsupported in IE6
+ * REMOVE THESE IF IE6 IS UNSUPPORTED
+ */
+.ie6 #modalOverlay,
+.ie6 #modalContent{
+     position:absolute;
+}
+.ie6 #modalOverlay{
+     height:expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight :document.body.offsetHeight + 'px');
+}
+.ie6 #modalContent{
+    margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
