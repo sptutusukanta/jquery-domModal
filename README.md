@@ -1,7 +1,9 @@
-domModal.jquery.js [![endorse](http://api.coderwall.com/oomlaut/endorsecount.png)](http://coderwall.com/oomlaut)
+domModal.jquery.js
 ==================
 
 A lightweight jQuery plug-in to load content from elsewhere in the DOM into a modal overlay.
+
+[![endorse](http://api.coderwall.com/oomlaut/endorsecount.png)](http://coderwall.com/oomlaut)
 
 FEATURES
 --------
