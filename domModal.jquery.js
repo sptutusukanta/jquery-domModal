@@ -35,6 +35,8 @@ jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 		,opacity: .85
 		,transitionRate: 500
 		,closeBtn: true
+		,closeModal: null
+		,closeOnBackground: true
 		,setup: null
 	};
 
@@ -68,7 +70,7 @@ jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 				overlay : $('<div>', {
 					id: 'modalOverlay'
 					,'class': 'modalRemove'
-					,click: function () { return !context.destroy(); }
+					,click: function () { return settings.closeOnBackground ? !context.destroy() : false; }
 					}).css({ opacity: settings.opacity }).appendTo('body')
 				,content : $('<div>', { id: 'modalContent' })
 					.height(settings.height)
@@ -83,6 +85,13 @@ jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 					,click: function () { return !context.destroy(); }
 				})
 			};
+
+            if (settings.closeModal) {
+                modal.content.find(settings.closeModal).click(function(){
+                    return !context.destroy();
+                });
+            }
+
 			return true;
 		}
 		,display: function () {
