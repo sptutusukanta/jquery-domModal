@@ -130,15 +130,18 @@
 				</script>
 			</li>
 			<li>
-				<a href="#customModalCloseButtonContainer" id="customModalCloseButton">Custom Modal Close Button</a>
+				<a href="#customModalCloseButtonContainer" id="customModalCloseButton">Custom Modal Close Button &amp; do not close on clicking background</a>
 				<div id="customModalCloseButtonContainer" class="hidden">
 					<p>Custom Modal Close Button</p>
+					<p>Try clicking on background, it will not close.</p>
 					<button class="close-modal">Close Modal</button>
 				</div>
 
 				<script type="text/javascript">
                     $('#customModalCloseButton').domModal({
-                        closeModal: '.close-modal'
+                        closeBtn: false,
+                        closeModal: '.close-modal',
+                        closeOnBackground: false
 					});
 				</script>
 			</li>
