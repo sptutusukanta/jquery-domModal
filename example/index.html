@@ -129,6 +129,19 @@
 					});
 				</script>
 			</li>
+			<li>
+				<a href="#customModalCloseButtonContainer" id="customModalCloseButton">Custom Modal Close Button</a>
+				<div id="customModalCloseButtonContainer" class="hidden">
+					<p>Custom Modal Close Button</p>
+					<button class="close-modal">Close Modal</button>
+				</div>
+
+				<script type="text/javascript">
+                    $('#customModalCloseButton').domModal({
+                        closeModal: '.close-modal'
+					});
+				</script>
+			</li>
 		</ol>
 		</div><!-- end of #main -->
 	</div> <!--! end of #wrapper -->

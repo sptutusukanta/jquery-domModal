@@ -35,6 +35,7 @@ jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 		,opacity: .85
 		,transitionRate: 500
 		,closeBtn: true
+		,closeModal: null
 		,setup: null
 	};
 
@@ -83,6 +84,13 @@ jQuery.fn.domModal = function (options, callbackDisplay, callbackDestroy) {
 					,click: function () { return !context.destroy(); }
 				})
 			};
+
+            if (settings.closeModal) {
+                modal.content.find(settings.closeModal).click(function(){
+                    return !context.destroy();
+                });
+            }
+
 			return true;
 		}
 		,display: function () {
